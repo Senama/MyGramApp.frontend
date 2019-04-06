@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Card, Button, CardHeader, CardBody, CardText, Input, Container } from 'reactstrap';
 import '../login/login.css';
+import {Link} from 'react-router-dom';
 
 
 
@@ -34,7 +35,9 @@ render() {
                 <Button color="primary">Login</Button>
                 <br />
                 <br />
+                <Link to = '/signup'>
                 <Button color="danger" size="lg">Signup</Button>
+                </Link>
               </div>
             </CardBody>
           </Card>
