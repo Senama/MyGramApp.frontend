@@ -47,16 +47,7 @@ class CreatePost extends Component {
 
     }
 
-    componentDidMount() {
-        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                this.setState({ user }, () => console.log('logged in'));
-            }
-            else {
-                this.setState({ user: null }, () => console.log('not logged in'))
-            }
-        })
-    }
+    
     handlePreview = (e) => {
         if (!e.target.files[0]) {
             return <></>

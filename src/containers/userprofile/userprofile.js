@@ -7,19 +7,42 @@ import { Link } from 'react-router-dom';
 
 
 
-class Login extends Component {
-
-  fileUpload = (e) => {
-    this.setState({
-      preview: URL.createObjectURL(e.target.files[0]),
-      file: e.target.files[0]
-    })
+class Userprofile extends Component {
+  constructor(props) {
+      super(props)
+      this.state = {
+          preview: null,
+          image: null,
+          upload:null
+      }
   }
+  
+   
+      componentDidMount() {
+        console.log('localStorage', localStorage.myImage)
+        if(!localStorage.myImage){
+          localStorage.setItem('myImage', JSON.stringify({myImage:'https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/embed/public/2011/09/15/159751-cristiano-ronaldo-of-real-madrid-eyes-the-ball-during-their-champions-.jpg'}))
+        }
+        else{
+          let img = localStorage.getItem('myImage')
+          const posts = JSON.parse(img);
+          this.setState({upload: posts})
+        }  
+    }
+  
+
+
+  
+  
   render() {
+    let img = ''
+    if(this.state.upload !== null){
+       img = <img src={this.state.upload.myImage} />
+    }
     return (
       <div>
         <Container>
-          <div className='col-4'>
+        <div className='mx-auto d-block' style={{ 'maxWidth': '350px' }}>
             <Card>
               <CardHeader style={{ backgroundColor: '#ffe599' }}>
                 <Link to='/login'>
@@ -30,7 +53,8 @@ class Login extends Component {
                 </Link>
               </CardHeader>
               <CardBody>
-                <div className='inputtext mb-2'>
+                <div>
+                  {img}
 
                 </div>
                 <br />
@@ -45,4 +69,5 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Userprofile;
+
