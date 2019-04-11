@@ -8,12 +8,21 @@ import Home from './containers/home/home';
 import Signup from './containers/signup/signup';
 import Login from './containers/login/login';
 import Logout from './containers/logout';
-import CreatePost from './createpost/createpost';
-import UserProfile from './containers/userprofile/userprofile';
+
+
+
 
 //  CONTEXTS
 
 import AuthContext from './contexts/auth';
+import Following from './containers/follows/following';
+import Followers from './containers/follows/followers';
+import Createpost from './containers/createpost/createpost';
+import UserProfile from './containers/userprofile/userprofile';
+import Newsfeed from './containers/newsfeed/newsfeed';
+import Viewpost from './containers/viewpost/viewpost';
+import Notifications from './containers/notifications/notifications';
+
 
 
 
@@ -57,7 +66,13 @@ class App extends React.Component {
                             <Route path='/login' exact component={Login} />
                             <Route path='/logout' exact component={Logout} />
                             <Route path='/userprofile' exact component={UserProfile} />
-                            <Route path='/createPost' exact component={CreatePost} />
+                            <Route path='/newsfeed' exact component={Newsfeed} />
+                            <Route path='/createpost' exact component={Createpost} />
+                            <Route path='/viewpost' exact component={Viewpost} />
+                            <Route path='/notifications' exact component={Notifications} />
+                            <Route path='/following' exact component={Following} />
+                            <Route path='/followers' exact component={Followers} />
+
                         </Switch>
                     </div>
                 </AuthContext.Provider>

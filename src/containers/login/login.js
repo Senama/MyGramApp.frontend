@@ -57,7 +57,8 @@ class Login extends Component {
                       <div className='mx-auto d-block' style={{ 'maxWidth': '350px' }}>
                         <Card>
                           <CardHeader style={{ backgroundColor: '#ffe599' }}>
-                            <img className='style' src={require('../../Mylogo.png')} alt=''></img></CardHeader>
+                            <img className='style' src={require('../../assets/Mylogo.png')} alt=''></img>
+                          </CardHeader>
                           <CardBody>
                             <div className='inputtext mb-2'>
                               <CardText className='mt-5'><Input placeholder="Username" type='email' onChange={this.handleChange} name='username' value={this.state.username} /></CardText>
@@ -74,6 +75,7 @@ class Login extends Component {
                               </Link>
                             </div>
                           </CardBody>
+
                         </Card>
                       </div>
                     </Container>

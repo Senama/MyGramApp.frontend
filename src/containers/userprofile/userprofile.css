@@ -1,4 +1,9 @@
-
+.myFile2{
+    max-width: 100px;
+    width: 100px !important;
+    max-height: 100px;
+    height: 100px !important;
+}
 .style{
     width: 20%;
     height:20%;

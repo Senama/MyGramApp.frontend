@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardBody, Container } from 'reactstrap';
+import { Card, CardHeader, CardBody, Container, Button} from 'reactstrap';
 import '../userprofile/userprofile.css';
 import { Link } from 'react-router-dom';
+import firebase from 'firebase';
+import Search from '../../components/searchbar/search';
+
+
 
 
 
@@ -9,52 +13,113 @@ import { Link } from 'react-router-dom';
 
 class Userprofile extends Component {
   constructor(props) {
-      super(props)
-      this.state = {
-          preview: null,
-          image: null,
-          upload:null
-      }
-  }
-  
-   
-      componentDidMount() {
-        console.log('localStorage', localStorage.myImage)
-        if(!localStorage.myImage){
-          localStorage.setItem('myImage', JSON.stringify({myImage:'https://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/embed/public/2011/09/15/159751-cristiano-ronaldo-of-real-madrid-eyes-the-ball-during-their-champions-.jpg'}))
-        }
-        else{
-          let img = localStorage.getItem('myImage')
-          const posts = JSON.parse(img);
-          this.setState({upload: posts})
-        }  
+    super(props)
+    this.state = {
+      preview: null,
+      image: null,
+      upload: null
+    
     }
-  
+  }
 
 
-  
-  
+  handleImage = () => {
+      // console.log('clickedimg', e.target.files[0])
+    if (this.state.image === null) {
+      return <></>
+    }
+    else {
+      const firstFile = this.state.image
+
+      const root = firebase.storage().ref();
+      const newImage = root.child(firstFile.name);
+
+      newImage.put(firstFile)
+        .then(snapshot => {
+          return snapshot.ref.getDownloadURL();
+        })
+        .then(url => {
+          console.log(url)
+          localStorage.setItem('myImage', url)
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
+
+  }
+
+
+  handlePreview = (e) => {
+    if (!e.target.files[0]) {
+      return <></>
+    }
+    this.setState({
+      preview: URL.createObjectURL(e.target.files[0]),
+      image: e.target.files[0]
+    })
+  }
+  ImagePreview = () => {
+    if (this.state.preview === null) {
+      return (<>
+        <img alt='' className='imgBox img-fluid' src='https://imgplaceholder.com/100x100/cccccc/757575/fa-file-photo-o'></img>
+
+      </>)
+    }
+    else {
+      return (<>
+        <img alt='' className='imgBox img-fluid' src={this.state.preview}></img>
+      </>)
+    }
+  }
+
+  componentDidMount() {
+    console.log('localStorage', localStorage.myImage)
+    if (!localStorage.myImage) {
+      localStorage.setItem('myImage', 'URL')
+    }
+      let img = localStorage.getItem('myImage')
+
+      this.setState({ preview: img })
+  }
+
+
+
+
+
   render() {
     let img = ''
-    if(this.state.upload !== null){
-       img = <img src={this.state.upload.myImage} />
+    if (this.state.upload !== null) {
+      img = <img src={this.state.preview} alt='' />
     }
     return (
       <div>
         <Container>
-        <div className='mx-auto d-block' style={{ 'maxWidth': '350px' }}>
+          <div className='mx-auto d-block' style={{ 'maxWidth': '350px' }}>
             <Card>
               <CardHeader style={{ backgroundColor: '#ffe599' }}>
                 <Link to='/login'>
-                  <img className='style' src={require('../../Mylogo.png')} alt=''></img>
+                  <img className='style' src={require('../../assets/Mylogo.png')} alt=''></img>
                 </Link>
+                {/* <input type='text' value= {this.state.input}></input> */}
+                {/* <form onSubmit={e => e.preventDefault()}>
+                <input className="box" type="search" id="search" placeholder="Search..." onChange={this.onInputChange} value={this.state.input} />
+                <input className='searchButton' type='submit' value='Search' onClick={this.handleSearch} />
+                </form> */}
+                <Search />
                 <Link to='/createpost' >
-                  <img style={{ 'float': 'right' }} className='style' src={require('../../Createpostbutton.png')} alt='' onClick={this.createpost}></img>
+                  <img style={{ 'float': 'right' }} className='style' src={require('../../assets/Createpostbutton.png')} alt='' onClick={this.createpost}></img>
                 </Link>
               </CardHeader>
               <CardBody>
                 <div>
-                  {img}
+                  <form>
+                    <div className='custom-file img-fluid myFile2 '>
+                      <input type='file' className='custom-file-input imgBox' onChange={this.handlePreview} />
+                      <this.ImagePreview />
+                    </div>
+                  </form>
+                  <Button onClick={this.handleImage} color='danger' size='sm'>POST</Button>
 
                 </div>
                 <br />
@@ -68,6 +133,8 @@ class Userprofile extends Component {
 
   }
 }
+
+
 
 export default Userprofile;
 
