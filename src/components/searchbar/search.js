@@ -7,7 +7,7 @@ import users from '../../userlist.json';
 const getUsers = input => {
     // console.log(users, searchTerm)
     const searchedUsers = users.filter(user => {
-        return user.username.indexOf(input) > -1;
+        return user.email.indexOf(input) > -1;
     })
 
     return searchedUsers;
@@ -45,18 +45,17 @@ handleSearch = e => {
 
 
 render(){
-    console.log(users)
-const {input,searchItems}=this.state;
-return(
-    
-    <AuthContext.Consumer>
-    {
-        (user)=>{
+    const searchHandler = this.props.searchHandler || this.handleSearch
+    const {input,searchItems}=this.state;
+    return(
+        <AuthContext.Consumer>
+        {
+            (user)=>{
             if(user){
                 return(<>
             <form onSubmit={e => e.preventDefault()}>
                 <input className="box" type="search" id="search" placeholder="Search..." onChange={this.onInputChange} value={this.state.input} />
-                <input className='searchButton' type='submit' value='Search' onClick={this.handleSearch} />
+                <input className='searchButton' type='submit' value='Search' onClick={searchHandler} />
             </form>
             {this.state.searchItems.map(user => {
                 return ( <div className="container border black">
@@ -64,7 +63,7 @@ return(
                     <img src={user.avatar} alt="..." className="rounded-circle" height="100" width="200" />
                     <div className="mx-auto mb-3">
                     <p> 
-                        <span className="col name"> {user.username}</span>
+                        <span className="col name"> {user.email}</span>
                     </p>
                     </div>
                     </div>

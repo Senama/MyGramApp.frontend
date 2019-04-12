@@ -57,7 +57,7 @@ class Signup extends Component {
                         <Card>
                           <CardHeader style={{ backgroundColor: '#ffe599' }}>
                             <Link to='/login'>
-                              {/* <img className='style' src={require('../../Mylogo.png')} alt=''></img> */}
+                              <img className='style' src={require('../../assets/Mylogo.png')} alt=''></img>
                             </Link>
                           </CardHeader>
                           <CardBody>

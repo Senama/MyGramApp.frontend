@@ -40,7 +40,7 @@ class Userprofile extends Component {
         })
         .then(url => {
           console.log(url)
-          localStorage.setItem('myImage', url)
+          localStorage.setItem('Avatar', url)
         })
         .catch(error => {
           console.log(error);
@@ -76,9 +76,9 @@ class Userprofile extends Component {
   componentDidMount() {
     console.log('localStorage', localStorage.myImage)
     if (!localStorage.myImage) {
-      localStorage.setItem('myImage', 'URL')
+      localStorage.setItem('Avatar', 'URL')
     }
-      let img = localStorage.getItem('myImage')
+      let img = localStorage.getItem('Avatar')
 
       this.setState({ preview: img })
   }
@@ -101,11 +101,6 @@ class Userprofile extends Component {
                 <Link to='/login'>
                   <img className='style' src={require('../../assets/Mylogo.png')} alt=''></img>
                 </Link>
-                {/* <input type='text' value= {this.state.input}></input> */}
-                {/* <form onSubmit={e => e.preventDefault()}>
-                <input className="box" type="search" id="search" placeholder="Search..." onChange={this.onInputChange} value={this.state.input} />
-                <input className='searchButton' type='submit' value='Search' onClick={this.handleSearch} />
-                </form> */}
                 <Search />
                 <Link to='/createpost' >
                   <img style={{ 'float': 'right' }} className='style' src={require('../../assets/Createpostbutton.png')} alt='' onClick={this.createpost}></img>
